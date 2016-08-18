@@ -10,12 +10,16 @@ RUN apt-get update && apt-get install -y \
               php5- mcrypt \
               php5-mysql \
               libmcrypt-dev \
-              git-core
+              git-core \
+              libmosquitto-dev
 
 # Enable PHP modules
 RUN docker-php-ext-install -j$(nproc) mysql mysqli curl json mcrypt gettext
 RUN pecl install redis-2.2.8 \
   \ && docker-php-ext-enable redis
+
+RUN pecl install Mosquitto-alpha \
+  \ && docker-php-ext-enable mosquitto
 
 RUN a2enmod rewrite
 
@@ -24,12 +28,12 @@ COPY config/php.ini /usr/local/etc/php/
 
 # NOT USED ANYMORE - GIT CLONE INSTEAD
 # Copy in emoncms files, files can be mounted from local FS for dev see docker-compose
-# ADD ./emoncms /var/www/html
+ADD ./emoncms /var/www/html
 
 # Clone in master Emoncms repo & modules - overwritten in development with local FS files
-RUN git clone https://github.com/emoncms/emoncms.git /var/www/html
-RUN git clone https://github.com/emoncms/dashboard.git /var/www/html/Modules/dashboard
-RUN git clone https://github.com/emoncms/graph.git /var/www/html/Modules/graph
+#RUN git clone https://github.com/emoncms/emoncms.git /var/www/html
+#RUN git clone https://github.com/emoncms/dashboard.git /var/www/html/Modules/dashboard
+#RUN git clone https://github.com/emoncms/graph.git /var/www/html/Modules/graph
 
 # Copy in settings from defaults
 WORKDIR /var/www/html
@@ -42,6 +46,13 @@ RUN mkdir /var/lib/phptimeseries
 RUN chown www-data:root /var/lib/phpfiwa
 RUN chown www-data:root /var/lib/phpfina
 RUN chown www-data:root /var/lib/phptimeseries
+
+# Setup mqtt daemon
+WORKDIR /etc/init.d
+RUN ln -s /var/www/html/scripts/mqtt_input
+RUN chown root:root /var/www/html/scripts/mqtt_input
+RUN chmod 755 /var/www/html/scripts/mqtt_input
+RUN systemctl enable mqtt_input
 
 # Create Emoncms logfile
 RUN touch /var/log/emoncms.log
