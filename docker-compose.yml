@@ -21,7 +21,7 @@ services:
   # MYSQL Database
   db:
     build: ./rpi-mysql
-    image: beaylott/rpi-mysql:5.7
+    image: beaylott/rpi-mysql:5.5
     environment:
       - "MYSQL_HOST=localhost"
     volumes:

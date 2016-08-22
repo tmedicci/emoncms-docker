@@ -58,7 +58,6 @@ RUN systemctl enable mqtt_input
 RUN touch /var/log/emoncms.log
 RUN chmod 666 /var/log/emoncms.log
 
-
 # TODO
 # Add Pecl :
 # - dio
