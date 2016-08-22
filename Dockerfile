@@ -52,15 +52,15 @@ WORKDIR /etc/init.d
 RUN ln -s /var/www/html/scripts/mqtt_input
 RUN chown root:root /var/www/html/scripts/mqtt_input
 RUN chmod 755 /var/www/html/scripts/mqtt_input
-RUN systemctl enable mqtt_input
+RUN update-rc.d mqtt_input defaults
 
 # Create Emoncms logfile
 RUN touch /var/log/emoncms.log
 RUN chmod 666 /var/log/emoncms.log
 
+
+
 # TODO
 # Add Pecl :
 # - dio
 # - Swiftmailer
-# - redis
-# - mqtt
