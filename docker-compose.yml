@@ -6,7 +6,7 @@ services:
 
   # PHP & apache container using offical Docker PHP iamge
   web:
-    image: beaylott/emoncms:fix
+    image: beaylott/emoncms
     build: .    
     volumes:
       # mount docker volumes persistant inside docker container

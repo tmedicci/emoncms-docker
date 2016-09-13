@@ -12,11 +12,11 @@ services:
       - ./emoncms:/var/www/html
     env_file:
       # Use default enviroment variables file for dev
-      - 'default.docker-env'
+      - 'smx.docker-env'
       
   db:
     env_file:
-      - 'default.docker-env'
+      - 'smx.docker-env'
   redis:
     env_file:
-      - 'default.docker-env'
+      - 'smx.docker-env'
