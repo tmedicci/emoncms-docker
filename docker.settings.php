@@ -25,12 +25,12 @@
 //3 #### MQTT
     // The 'subscriber' topic format is rx/* - where * is the emoncms input node number.
     // The 'publisher' topic format is user selectable from the 'Publish to MQTT' input process, for example power/solar
-    $mqtt_enabled = true;          // Activate MQTT by changing to true
-    $mqtt_server = array( 'host'     => '172.17.0.1',
-                          'port'     => 1883,
-                          'user'     => '',
-                          'password' => '',
-                          'basetopic'=> '#'
+    $mqtt_enabled = isset($_ENV["MQTT_ENABLED"]) ? $_ENV["MQTT_ENABLED"] === 'true' : false;
+    $mqtt_server = array( 'host'     => $_ENV["MQTT_HOST"],
+                          'port'     => $_ENV["MQTT_PORT"],
+                          'user'     => $_ENV["MQTT_USER"],
+                          'password' => $_ENV["MQTT_PASSWORD"],
+                          'basetopic'=> $_ENV["MQTT_BASE_TOPIC"],
                           );
 
 
@@ -70,7 +70,7 @@
     );
 
     // Max number of allowed different inputs per user. For limiting garbage rf data
-    $max_node_id_limit = 32;
+    $max_node_id_limit = 100;
 
 
 //5 #### User Interface settings
@@ -134,10 +134,10 @@
     // On windows or shared hosting you will likely need to specify a different logfile directory
     $log_filename = '/var/log/emoncms.log';
     // Log Level: 1=INFO, 2=WARN, 3=ERROR
-    $log_level = 2;
+    $log_level = 1;
 
     // If installed on Emonpi, allow admin menu tools
-    $allow_emonpi_admin = false;
+    $allow_emonpi_admin = true;
 
     //experimental feature for virtual feeds average, default is true, set to false to activate average agregation with all data points, will be slower
     $data_sampling = false;
