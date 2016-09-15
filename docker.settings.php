@@ -134,7 +134,7 @@
     // On windows or shared hosting you will likely need to specify a different logfile directory
     $log_filename = '/var/log/emoncms.log';
     // Log Level: 1=INFO, 2=WARN, 3=ERROR
-    $log_level = 1;
+    $log_level = 3;
 
     // If installed on Emonpi, allow admin menu tools
     $allow_emonpi_admin = false;
