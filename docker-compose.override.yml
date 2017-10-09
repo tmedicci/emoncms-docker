@@ -2,7 +2,6 @@
 
 version: '2'
 services:
-
   web:
     ports:
       # Expose Emoncms on localhost port 8080
@@ -20,3 +19,8 @@ services:
   redis:
     env_file:
       - 'default.docker-env'
+  mosquitto:
+    env_file:
+      - 'default.docker-env'
+    ports:
+      - 8883:8883
