@@ -4,8 +4,12 @@
 #
 rm emoncms -rf
 git clone https://github.com/emoncms/emoncms.git ./emoncms
+cd ./emoncms
+git checkout -b device-integration origin/device-integration
+cd ..
 git clone https://github.com/emoncms/dashboard.git ./emoncms/Modules/dashboard
 git clone https://github.com/emoncms/graph.git ./emoncms/Modules/graph
+git clone https://github.com/carboncoop/key.git ./emoncms/Modules/key
 
 # Use docker settings
 cp  docker.settings.php ./emoncms/settings.php

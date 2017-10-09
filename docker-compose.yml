@@ -18,6 +18,7 @@ services:
       # Link to MYSQL DB (see below)
       - db
       - redis
+      - mosquitto
 
   # MYSQL Database
   db:
@@ -33,7 +34,9 @@ services:
     image: redis:3.0.7
     volumes:
       - emon-redis-data:/data
-
+  mosquitto:
+    image: eclipse-mosquitto:latest   
+ 
 volumes:
   emon-phpfiwa:
     driver: local

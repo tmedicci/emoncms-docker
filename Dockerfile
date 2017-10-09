@@ -10,12 +10,23 @@ RUN apt-get update && apt-get install -y \
               php5- mcrypt \
               php5-mysql \
               libmcrypt-dev \
-              git-core
+              git-core \
+	      libmosquitto-dev \
+              supervisor	
+
+# Make log for supervisor
+RUN mkdir -p /var/log/supervisor
 
 # Enable PHP modules
 RUN docker-php-ext-install -j$(nproc) mysql mysqli curl json mcrypt gettext
+
+# PHP-Redis
 RUN pecl install redis-2.2.8 \
   \ && docker-php-ext-enable redis
+
+# PHP-MQTT
+RUN pecl install Mosquitto-alpha \
+  \ && docker-php-ext-enable mosquitto
 
 RUN a2enmod rewrite
 
@@ -47,10 +58,10 @@ RUN chown www-data:root /var/lib/phptimeseries
 RUN touch /var/log/emoncms.log
 RUN chmod 666 /var/log/emoncms.log
 
+COPY docker.supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord"]
 
 # TODO
 # Add Pecl :
 # - dio
 # - Swiftmailer
-# - redis
-# - mqtt
