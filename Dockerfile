@@ -58,7 +58,7 @@ RUN chown www-data:root /var/lib/phptimeseries
 RUN touch /var/log/emoncms.log
 RUN chmod 666 /var/log/emoncms.log
 
-COPY docker.supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord"]
 
 # TODO
