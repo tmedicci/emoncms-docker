@@ -13,7 +13,7 @@ services:
     env_file:
       # Use default enviroment variables file for dev
       - 'default.docker-env'
-      
+
   db:
     env_file:
       - 'default.docker-env'

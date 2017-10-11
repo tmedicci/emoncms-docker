@@ -3,9 +3,19 @@
 # Check out the requisite modules for a working emoncms setup.
 #
 rm emoncms -rf
+
 git clone https://github.com/emoncms/emoncms.git ./emoncms
+git -C ./emoncms checkout group-support
+
 git clone https://github.com/emoncms/dashboard.git ./emoncms/Modules/dashboard
-git clone https://github.com/emoncms/graph.git ./emoncms/Modules/graph
+
+git clone https://github.com/emoncms/group.git ./emoncms/Modules/group
+git -C ./emoncms/Modules/group checkout development
+
+git clone https://github.com/carboncoop/graph.git ./emoncms/Modules/graph
+git -C ./emoncms/Modules/graph checkout develop
+
+git clone https://github.com/carboncoop/task.git ./emoncms/Modules/task
 
 # Use docker settings
 cp  docker.settings.php ./emoncms/settings.php
