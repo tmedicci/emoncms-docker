@@ -1,3 +1,4 @@
+
 # Base docker compose, added to by docker-compose.override or docker-compose.prod. See Readme.md
 
 version: '2'
@@ -23,7 +24,7 @@ services:
   db:
     # Official MYSQL docker image
     # To do: make compatiable with 5.7
-    image: mariadb:10
+    image: jsurf/rpi-mariadb:latest
     environment:
       - "MYSQL_HOST=localhost"
     volumes:
